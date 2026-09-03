@@ -25,4 +25,12 @@ $router->get('/login', 'AuthController@showLogin');
 $router->post('/login', 'AuthController@login');
 $router->get('/logout', 'AuthController@logout');
 
+$router->get('/societaires', 'SocietaireController@index');
+$router->get('/societaires/create', 'SocietaireController@create');
+$router->post('/societaires', 'SocietaireController@store');
+$router->get('/societaires/{id}', 'SocietaireController@show');
+$router->get('/societaires/{id}/edit', 'SocietaireController@edit');
+$router->post('/societaires/{id}/edit', 'SocietaireController@update');
+$router->post('/societaires/{id}/supprimer', 'SocietaireController@destroy');
+
 $router->dispatch();

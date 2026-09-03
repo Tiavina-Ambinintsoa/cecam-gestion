@@ -20,6 +20,19 @@ class Controller
         require BASE_PATH . '/app/Views/layouts/' . $layout . '.php';
     }
 
+    protected function renderPartial(string $view, array $data = []): void
+    {
+        extract($data);
+        $viewPath = BASE_PATH . '/app/Views/' . $view . '.php';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            die("Vue introuvable : $view");
+        }
+
+        require $viewPath;
+    }
+
     protected function redirect(string $path): void
     {
         header('Location: ' . $path);
