@@ -32,10 +32,11 @@ CREATE TABLE comptes_epargne (
   id INT AUTO_INCREMENT PRIMARY KEY,
   societaire_id INT NOT NULL,
   numero_compte VARCHAR(30) NOT NULL UNIQUE,
-  type_compte ENUM('libre','obligatoire','a_terme') NOT NULL DEFAULT 'libre',
+  type_compte ENUM('DAV','DAT','PLE') NOT NULL DEFAULT 'DAV',
   solde DECIMAL(15,2) NOT NULL DEFAULT 0,
   taux_interet DECIMAL(5,2) DEFAULT 0,
   date_ouverture DATE DEFAULT (CURRENT_DATE),
+  date_echeance DATE NULL,
   statut ENUM('actif','cloture') DEFAULT 'actif',
   FOREIGN KEY (societaire_id) REFERENCES societaires(id)
 );

@@ -33,4 +33,12 @@ $router->get('/societaires/{id}/edit', 'SocietaireController@edit');
 $router->post('/societaires/{id}/edit', 'SocietaireController@update');
 $router->post('/societaires/{id}/supprimer', 'SocietaireController@destroy');
 
+$router->get('/epargne', 'EpargneController@index');
+$router->get('/societaires/{id}/epargne', 'EpargneController@panel');
+$router->get('/societaires/{id}/comptes/create', 'EpargneController@create');
+$router->post('/societaires/{id}/comptes', 'EpargneController@store');
+$router->get('/comptes/{id}', 'EpargneController@show');
+$router->post('/comptes/{id}/depot', 'EpargneController@depot');
+$router->post('/comptes/{id}/retrait', 'EpargneController@retrait');
+
 $router->dispatch();

@@ -39,8 +39,8 @@
     <?php endif; ?>
 </div>
 
-<div id="tab-epargne" class="tab-panel hidden bg-white rounded-xl border shadow-sm p-6 text-sm text-gray-400">
-    Module Épargne à venir (Prompt 4) — les comptes et mouvements de ce sociétaire s'afficheront ici.
+<div id="tab-epargne" class="tab-panel hidden bg-white rounded-xl border shadow-sm p-6" data-loaded="0">
+    <p class="text-sm text-gray-400">Chargement…</p>
 </div>
 
 <div id="tab-credits" class="tab-panel hidden bg-white rounded-xl border shadow-sm p-6 text-sm text-gray-400">
@@ -57,7 +57,18 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
         btn.classList.add('border-emerald-600', 'text-emerald-700', 'font-medium');
         btn.classList.remove('border-transparent', 'text-gray-500');
         document.querySelectorAll('.tab-panel').forEach((p) => p.classList.add('hidden'));
-        document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        panel.classList.remove('hidden');
+
+        if (btn.dataset.tab === 'epargne' && panel.dataset.loaded === '0') {
+            fetch('/societaires/<?= (int) $societaire['id'] ?>/epargne', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then((res) => res.text())
+                .then((html) => {
+                    panel.innerHTML = html;
+                    panel.dataset.loaded = '1';
+                });
+        }
     });
 });
 </script>
